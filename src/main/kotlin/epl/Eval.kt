@@ -2,6 +2,7 @@ package main.epl
 
 class Eval : Visitor {
     var res : Int = 0
+    var hei : Int = 0
 
     override fun visit(exp: Literal) { res = exp.value }
 
@@ -12,6 +13,7 @@ class Eval : Visitor {
         exp.rhs.accept(this)
         val vr = res
         res = vl + vr
+        hei+=1
     }
 
     // ### SUB ###
@@ -21,6 +23,8 @@ class Eval : Visitor {
         exp.rhs.accept(this)
         val vr = res
         res = vl - vr
+        hei+=1
+
     }
 
     // ### MULT ###
@@ -30,9 +34,18 @@ class Eval : Visitor {
         exp.rhs.accept(this)
         val vr = res
         res = vl * vr
+        hei+=1
+
     }
 
 
     fun result() : Int = res
+    fun height() : Int {
+        if(hei<2) {
+            return hei+1;
+        } else {
+            return hei;
+        }
+    }
 
 }
